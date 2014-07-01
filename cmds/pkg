@@ -1,0 +1,14 @@
+#!/bin/bash
+
+# Description: List all installed packages or all matching a specified name
+# Usage: [SearchString]
+
+if [ $# -gt 1 ] ; then
+  echo "Too many arguments!"
+  echo "Example 1: rdb pkg"
+  echo "Example 2: rdb pkg exampleapp"
+elif [ $# -eq 1 ] ; then
+  adb $RDB_DEVICE_SELECT shell pm list package -f | egrep -i "$@"
+else
+  adb $RDB_DEVICE_SELECT shell pm list package -f
+fi

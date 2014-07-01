@@ -1,0 +1,49 @@
+#!/bin/bash
+
+is_integer() {
+  if [[ $1 != *[!0-9]* ]] ; then
+    echo "true"
+  else
+    echo "false"
+  fi
+}
+
+# Purpose: appends a file extension to a path name
+# 1st param: the original path name
+# 2nd param: the extension to append if missing (without the period!)  [example: png]
+# returns: the new path name with extension appended
+append_extension_if_missing() {
+  if [[ $1 != *.$2 ]] ; then
+    echo "$1.$2"
+  else
+    echo $1
+  fi
+}
+
+# Purpose: repeats a command multiple times
+# 1st param: number of times to repeat command
+# Remaining param(s): the command to repeat
+repeat() {
+  local times="$1"
+  shift
+  local cmd="$*"
+  for (( i = 0 ; i < $times ; i++ )) ; do
+    eval "$cmd"
+  done
+}
+
+# Purpose: conditionally displays a confirmation message and waits for user to enter "y" to continue
+# 1st param: the rdb command (checked for the "!" confirmation bypass flag)
+# 2nd param: the confirmation message to display
+confirm() {
+  echo "$2"
+  if [[ $1 != *! ]] ; then
+    echo -n "Press [y] to proceed: "
+    read -n 1 INPUT
+    echo
+    if test "$INPUT" != "y" -a "$INPUT" != "Y" ; then
+      echo "<Operation cancelled>"
+      exit 0
+    fi
+  fi
+}

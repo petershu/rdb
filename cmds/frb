@@ -1,0 +1,5 @@
+#!/bin/bash
+
+# Description: fastboot reboot
+
+fastboot $RDB_DEVICE_SELECT reboot

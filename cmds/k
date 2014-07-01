@@ -1,0 +1,26 @@
+#!/bin/bash
+
+# Description: kill application with the specified package name or PID (Note: Killing by PID only works on rooted devices)
+# Usage: [PackageName|PID]
+
+. $RDB_UTIL
+
+if [ $# -ne 1 ] ; then
+  echo "Please specify a process id or a package name: rdb k <PID|PackageName>"
+  echo "Example 1: rdb k 12345"
+  echo "Example 2: rdb k com.example.someapp"
+else
+  if [ $(is_integer $1) == "true" ] ; then
+    package_name=$(adb $device_select shell ps -p $1 | grep $1 | awk '{print $13}')
+    if [ -z $package_name ] ; then
+      echo "Process $1 not found!"
+    else
+      confirm $1 "Killing process: $package_name" &&
+      adb $RDB_DEVICE_SELECT shell kill $1
+    fi
+  else
+    package_name=${1:-$RDB_APP_PACKAGE_NAME}
+    confirm $1 "Killing process: $package_name" &&
+    adb $RDB_DEVICE_SELECT shell am force-stop $package_name
+  fi
+fi

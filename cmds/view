@@ -1,0 +1,12 @@
+#!/bin/bash
+
+# Description: sends an 'android.intent.action.VIEW' intent to open the specified URI
+# Usage: <URI>
+
+if [ $# -ne 1 ] ; then
+  echo "Please specify what to view: rdb view <URI>"
+  echo "Example 1: rdb view http://www.google.com"
+  echo "Example 2: rdb view file:///storage/sdcard0/DCIM/100MEDIA/IMAG0001.jpg"
+else
+  adb $RDB_DEVICE_SELECT shell am start -a android.intent.action.VIEW -d $1
+fi

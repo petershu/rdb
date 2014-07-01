@@ -1,0 +1,15 @@
+#!/bin/bash
+
+# Description: clears data for the specified application
+# Usage: [PackageName]
+
+. $RDB_UTIL
+
+package_name=${1:-$RDB_APP_PACKAGE_NAME}
+if [ -z $package_name ] ; then
+  echo "Please specify a package name: rdb pmc [PackageName]"
+  echo "Example: rdb pmc com.example.someapp"
+else
+  confirm $1 "Clearing data from package: [${package_name}]." &&
+  adb $RDB_DEVICE_SELECT shell pm clear $package_name
+fi

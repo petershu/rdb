@@ -1,0 +1,6 @@
+#!/bin/bash
+
+# Description: adb devices & fastboot devices
+
+adb devices
+fastboot devices

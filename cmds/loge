@@ -1,0 +1,5 @@
+#!/bin/bash
+
+# Description: adb logcat -v threadtime *:e
+
+adb $RDB_DEVICE_SELECT logcat -v threadtime *:e

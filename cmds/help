@@ -1,0 +1,33 @@
+#!/bin/bash
+
+# Description: display this manual
+
+num_cmds=0
+longest_cmd_name_length=0
+longest_usage_string_length=0
+for command in $(find ${RDB_COMMANDS_PATH} -type f | grep -v '/\.')
+do
+  cmds[num_cmds]=${command##*/}
+  cmd_name_length=${#cmds[num_cmds]}
+  if [ $cmd_name_length -gt $longest_cmd_name_length ] ; then
+    longest_cmd_name_length=$cmd_name_length
+  fi
+  usage_strings[num_cmds]=$(sed -n 's/ *# *Usage *: *\(.*\)/\1/p' $command)
+  usage_string_length=${#usage_strings[num_cmds]}
+  if [ $usage_string_length -gt $longest_usage_string_length ] ; then
+    longest_usage_string_length=$usage_string_length
+  fi
+  description_strings[num_cmds]=$(sed -n 's/ *# *Description *: *\(.*\)/\1/p' $command)
+  (( num_cmds++ ))
+done
+
+echo -e "\n${RDB_NAME} v${RDB_VERSION}"
+echo "USAGE: ${RDB_BASE_NAME} [OPTIONS] <COMMAND>"
+echo "OPTIONS: [-s DeviceSerialNumber]"
+printf "%$((longest_cmd_name_length+2))s %-$((longest_usage_string_length))s  - %s\n" "-s" "" "sends the command to the specified device"
+echo "COMMANDS:"
+for (( i=0 ; i<$num_cmds ; i++ ))
+do
+  printf "%$((longest_cmd_name_length+2))s %-$((longest_usage_string_length))s  - %s\n" "${cmds[i]}" "${usage_strings[i]}" "${description_strings[i]}"
+done
+echo

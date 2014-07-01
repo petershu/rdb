@@ -1,0 +1,54 @@
+#!/bin/bash
+
+export RDB_NAME="Our Debug Bridge"
+export RDB_VERSION="1.0.0"
+
+export RDB_BASE_PATH=$PWD
+export RDB_BASE_NAME=$(basename $0)
+export RDB="${RDB_BASE_PATH}/${RDB_BASE_NAME}"
+
+RDB_UTIL_FILENAME="rdb.util"
+export RDB_UTIL="$RDB_BASE_PATH/$RDB_UTIL_FILENAME"
+
+RDB_CONFIG_FILENAME="rdb.config"
+. $RDB_BASE_PATH/$RDB_CONFIG_FILENAME
+
+get_command_full_path() {
+  for command in $(find ${RDB_COMMANDS_PATH} -type f | grep -v '/\.')
+  do
+    if [ "$1" == "${command##*/}" ] ; then
+	  echo $command
+      return 0
+    fi
+  done
+  echo "unrecognized"
+  return 1
+}
+
+RDB_OPTIONS=" "
+while getopts ":s:" opt
+do
+  case "$opt" in
+    "s" )
+      export RDB_OPTIONS=$RDB_OPTIONS"-s "$OPTARG
+      export RDB_DEVICE_SELECT="-s ${!OPTARG:-$OPTARG}"
+      ;;
+    ":" )
+      echo "No argument was specified for option $OPTARG"
+      ;;
+    * )
+      ;;
+  esac
+done
+shift $(($OPTIND - 1))
+
+RDB_COMMAND_NAME=${1:-${RDB_COMMAND_HELP_NAME}}
+RDB_COMMAND=$(get_command_full_path ${RDB_COMMAND_NAME})
+shift
+
+if [ ${RDB_COMMAND} == "unrecognized" ] ; then
+  echo "Command not recognized. RTFM!"
+  $(get_command_full_path "${RDB_COMMAND_HELP_NAME}")
+else
+  $RDB_COMMAND "$@"
+fi
