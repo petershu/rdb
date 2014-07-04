@@ -3,7 +3,7 @@
 export RDB_NAME="Our Debug Bridge"
 export RDB_VERSION="1.0.0"
 
-export RDB_BASE_PATH=$PWD
+export RDB_BASE_PATH=$(dirname $0)
 export RDB_BASE_NAME=$(basename $0)
 export RDB="${RDB_BASE_PATH}/${RDB_BASE_NAME}"
 
