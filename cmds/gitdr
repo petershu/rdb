@@ -1,0 +1,21 @@
+#!/bin/bash
+
+# Description: checks whether your git local branch HEAD differs from the remote
+
+git remote update >/dev/null &&
+
+LOCAL=$(git rev-parse @{0}) &&
+REMOTE=$(git rev-parse @{u}) &&
+BASE=$(git merge-base @{0} @{u}) &&
+
+if [ $LOCAL = $REMOTE ] ; then
+  echo "Local branch is up-to-date."
+  exit 0
+elif [ $LOCAL = $BASE ] ; then
+  echo "Remote branch contains newer commits."
+elif [ $REMOTE = $BASE ] ; then
+  echo "Local branch contains unpushed commits."
+else
+  echo "Local branch has diverged from remote."
+fi
+exit 1
