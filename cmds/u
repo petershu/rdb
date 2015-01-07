@@ -1,0 +1,15 @@
+#!/bin/bash
+
+# Description: adb uninstall
+# Usage: <PackageName>
+
+. $RDB_UTIL
+
+package_name=${1:-$RDB_APP_PACKAGE_NAME}
+if [ -z $package_name ] ; then
+  echo "Please specify a package name: rdb u <PackageName>"
+  echo "Example: rdb u com.example.someapp"
+else
+  confirm $1 "Uninstalling package: [${package_name}]." &&
+  adb $RDB_DEVICE_SELECT uninstall $package_name
+fi
