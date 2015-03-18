@@ -47,7 +47,7 @@ RDB_COMMAND=$(get_command_full_path ${RDB_COMMAND_NAME})
 shift
 
 if [ ${RDB_COMMAND} == "unrecognized" ] ; then
-  echo "Command not recognized. RTFM!"
+  echo "$(tput setaf 1)Command not recognized. RTFM!$(tput sgr0)"
   $(get_command_full_path "${RDB_COMMAND_HELP_NAME}")
 else
   $RDB_COMMAND "$@"
