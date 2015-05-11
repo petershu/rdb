@@ -1,0 +1,5 @@
+#!/bin/bash
+
+# Description: launches Developer Settings
+
+adb $RDB_DEVICE_SELECT shell am start -n com.android.settings/.DevelopmentSettings

@@ -12,6 +12,7 @@ Option | Parameters | Description
 Command | Parameters | Description
 ------: | :--------- | :----------
 dev |  | adb devices & fastboot devices
+ds |  | launches Developer Settings
 elog | [PackageName] | adb logcat -v threadtime -b events (and filters for a specific package name if specified)
 frb |  | fastboot reboot
 gitdf |  | checks whether your git working directory has any unstaged changes (using git diff-files)
