@@ -20,7 +20,6 @@ gitdr |  | checks whether your git local branch HEAD differs from the remote
 gp | [SearchString] | adb shell getprop (and filters using a search string if specified)
 help |  | display this manual
 helpmd |  | display this manual in markdown format
-ifdebug |  | gradlew apps:flipboard:installInternalBetaRegularDebug
 k | [PackageName\|PID] | kill application with the specified package name or PID (Note: Killing by PID only works on rooted devices)
 log |  | adb logcat -v threadtime
 loge |  | adb logcat -v threadtime *:e
@@ -33,7 +32,6 @@ rbb |  | adb reboot bootloader
 scp | <ScreenshotSavePath> | captures screenshot from device and saves it to the designated path
 scr | <ScreenRecordingSavePath> | captures screen recording and saves it to the designated path
 sh | [OptionalAdbShellCommands] | adb shell with optional commands
-type |  | Allows inputting text to device from your terminal
 u | <PackageName> | adb uninstall
 view | <URI> | sends an 'android.intent.action.VIEW' intent to open the specified URI
 
