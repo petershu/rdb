@@ -25,30 +25,38 @@ get_command_full_path() {
   return 1
 }
 
-RDB_OPTIONS=" "
-while getopts ":s:" opt
-do
-  case "$opt" in
-    "s" )
-      export RDB_OPTIONS=$RDB_OPTIONS"-s "$OPTARG
-      export RDB_DEVICE_SELECT="-s ${!OPTARG:-$OPTARG}"
-      ;;
-    ":" )
-      echo "No argument was specified for option $OPTARG"
+while [[ $# > 0 && $1 == -* ]] ; do
+  case "$1" in
+    -s )
+      if [[ $# -lt 2 || $2 == -* ]] ; then
+        echo "$(tput setaf 1)Missing argument for option '$1'.$(tput sgr0)"
+        $(get_command_full_path "${RDB_COMMAND_HELP_NAME}")
+        exit 1
+      fi
+      export RDB_DEVICE_SELECT="-s ${!2:-$2}"
+      shift
       ;;
     * )
+      echo "$(tput setaf 1)Option '$1' not recognized.$(tput sgr0)"
+      $(get_command_full_path "${RDB_COMMAND_HELP_NAME}")
+      exit 1
       ;;
   esac
+  shift
 done
-shift $(($OPTIND - 1))
 
-RDB_COMMAND_NAME=${1:-${RDB_COMMAND_HELP_NAME}}
-RDB_COMMAND=$(get_command_full_path ${RDB_COMMAND_NAME})
-shift
-
-if [ ${RDB_COMMAND} == "unrecognized" ] ; then
-  echo "$(tput setaf 1)Command not recognized. RTFM!$(tput sgr0)"
+if [ $# == 0 ] ; then
+  echo "$(tput setaf 5)No command specified.$(tput sgr0)"
   $(get_command_full_path "${RDB_COMMAND_HELP_NAME}")
+  exit 1
 else
-  $RDB_COMMAND "$@"
+  RDB_COMMAND=$(get_command_full_path $1)
+  shift
+  if [ ${RDB_COMMAND} == "unrecognized" ] ; then
+    echo "$(tput setaf 1)Command not recognized. RTFM!$(tput sgr0)"
+    $(get_command_full_path "${RDB_COMMAND_HELP_NAME}")
+    exit 1
+  else
+    $RDB_COMMAND "$@"
+  fi
 fi
