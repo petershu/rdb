@@ -1,4 +1,4 @@
-# rdb v1.0.0
+# rdb v1.1.0
 
 ## Usage
 rdb [OPTIONS] \<COMMAND\>
