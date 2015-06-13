@@ -1,0 +1,14 @@
+#!/bin/bash
+
+# Description: adb shell am start
+# Usage: <ComponentName>
+
+. $RDB_UTIL
+
+component_name=$1
+if [ -z $component_name ] ; then
+  echo "Please specify a component name: rdb l <ComponentName>"
+  echo "Example: rdb l com.example.someapp/.SomeActivity"
+else
+  adb $RDB_DEVICE_SELECT shell am start -n $component_name
+fi

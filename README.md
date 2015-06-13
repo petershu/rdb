@@ -23,6 +23,7 @@ gp | [SearchString] | adb shell getprop (and filters using a search string if sp
 help |  | display this manual
 helpmd |  | display this manual in markdown format
 k | [PackageName\|PID] | kill application with the specified package name or PID (Note: Killing by PID only works on rooted devices)
+l | <ComponentName> | adb shell am start
 log |  | adb logcat -v threadtime
 loge |  | adb logcat -v threadtime *:e
 pid | [PackageName\|SearchString] | get PID (process id) by full or partial package name
