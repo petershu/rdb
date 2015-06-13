@@ -23,8 +23,9 @@ done
 
 echo -e "\n${RDB_NAME} v${RDB_VERSION}"
 echo "USAGE: ${RDB_BASE_NAME} [OPTIONS] <COMMAND>"
-echo "OPTIONS: [-s DeviceSerialNumber]"
-printf "%$((longest_cmd_name_length+2))s %-$((longest_usage_string_length))s  - %s\n" "-s" "" "sends the command to the specified device"
+echo "OPTIONS: [-s DeviceSerialNumber|-a]"
+printf "%$((longest_cmd_name_length+2))s %-$((longest_usage_string_length))s  - %s\n" "-s" "<DeviceSerialNumber>" "sends the command to the specified device"
+printf "%$((longest_cmd_name_length+2))s %-$((longest_usage_string_length))s  - %s\n" "-a" "" "sends the command to all connected devices (this will override -s)"
 echo "COMMANDS:"
 for (( i=0 ; i<$num_cmds ; i++ ))
 do

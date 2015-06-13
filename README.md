@@ -7,6 +7,7 @@ rdb [OPTIONS] \<COMMAND\>
 Option | Parameters | Description
 -----: | :--------- | :----------
 -s | [DeviceSerialNumber] | sends the command to the specified device
+-a |  | sends the command to all connected devices (this will override -s)
 
 ## Commands
 Command | Parameters | Description
