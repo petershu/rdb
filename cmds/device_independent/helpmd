@@ -6,8 +6,8 @@ num_cmds=0
 for command in $(find ${RDB_COMMANDS_PATH} -type f | grep -v '/\.' | awk -F'/' '{print($NF"/"$0)}' | sort -k1n,1n -t'/' | cut -f2- -d'/')
 do
   cmds[num_cmds]=${command##*/}
-  usage_strings[num_cmds]=$(sed -n 's/ *# *Usage *: *\(.*\)/\1/p' $command)
-  description_strings[num_cmds]=$(sed -n 's/ *# *Description *: *\(.*\)/\1/p' $command)
+  usage_strings[num_cmds]=$(sed -n 's/ *# *Usage *: *\(.*\)/\1/p' $command | sed 's/\([<\|>]\)/\\\1/g')
+  description_strings[num_cmds]=$(sed -n 's/ *# *Description *: *\(.*\)/\1/p' $command | sed 's/\([<\|>]\)/\\\1/g')
   (( num_cmds++ ))
 done
 
@@ -24,6 +24,6 @@ echo "Command | Parameters | Description"
 echo "------: | :--------- | :----------"
 for (( i=0 ; i<$num_cmds ; i++ ))
 do
-  printf "%s | %s | %s\n" "${cmds[i]}" "${usage_strings[i]//|/\|}" "${description_strings[i]}"
+  printf "%s | %s | %s\n" "${cmds[i]}" "${usage_strings[i]}" "${description_strings[i]}"
 done
 echo
