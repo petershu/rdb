@@ -60,7 +60,7 @@ else
     $(get_command_full_path "${RDB_COMMAND_HELP_NAME}")
     exit 1
   else
-    if [ "${RDB_EXECUTE_ON_ALL_DEVICES}" == true ] ; then
+    if [ "${RDB_EXECUTE_ON_ALL_DEVICES}" == true ] && [[ "${RDB_COMMAND}" != "${RDB_COMMANDS_INDEPENDENT_PATH}"* ]] ; then
       if [[ "${RDB_COMMAND}" == "${RDB_COMMANDS_SYNCHRONOUS_PATH}"* ]] ; then
         echo "$(tput setaf 1)Unable to execute command with multiple devices connected.$(tput sgr0)"
         exit 1
