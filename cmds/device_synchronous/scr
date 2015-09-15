@@ -23,5 +23,5 @@ if [ $# -ne 1 ] ; then
 else
   echo "Screen recording has started. $(tput setaf 4)Press Ctrl-C to stop recording...$(tput sgr0)"
   trap "pull_recording $1" EXIT
-  adb $RDB_DEVICE_SELECT shell screenrecord --bit-rate 8000000 ${remote_screenrecording_file_path}
+  adb $RDB_DEVICE_SELECT shell screenrecord --bit-rate 16000000 ${remote_screenrecording_file_path}
 fi
