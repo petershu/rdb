@@ -35,6 +35,11 @@ rbb |  | adb reboot bootloader
 scp | \<ScreenshotSavePath\> | captures screenshot from device and saves it to the designated path
 scr | \<ScreenRecordingSavePath\> | captures screen recording and saves it to the designated path
 sh | [OptionalAdbShellCommands] | adb shell with optional commands
+swd |  | simulates a swipe gesture from top to bottom
+swl |  | simulates a swipe gesture from right to left
+swr |  | simulates a swipe gesture from left to right
+swu |  | simulates a swipe gesture from bottom to top
+tap | \<x\> \<y\> | adb shell input tap
 u | \<PackageName\> | adb uninstall
 view | \<URI\> | sends an 'android.intent.action.VIEW' intent to open the specified URI
 

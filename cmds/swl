@@ -1,0 +1,19 @@
+#!/bin/bash
+
+# Description: simulates a swipe gesture from right to left
+
+restricted_screen_size=$(adb $RDB_DEVICE_SELECT shell dumpsys window | grep mRestrictedScreen)
+if [[ $restricted_screen_size =~ ([0-9]+)x([0-9]+) ]] ; then
+  screen_width=${BASH_REMATCH[1]}
+  screen_height=${BASH_REMATCH[2]}
+else
+  echo "Failed to retrieve screen dimensions!"
+  exit 1
+fi
+
+left=10
+right=$((screen_width - 10))
+y=$((screen_height / 2))
+
+echo "Swiping from ($right, $y) to ($left, $y)"
+adb $RDB_DEVICE_SELECT shell input swipe $right $y $left $y
