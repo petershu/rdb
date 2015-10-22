@@ -37,7 +37,7 @@ repeat() {
 # 2nd param: the confirmation message to display
 confirm() {
   echo "$2"
-  if [[ $1 != *! ]] ; then
+  if [ "$RDB_CONFIRM_BYPASS" == "false" ] ; then
     echo -n "Press [y] to proceed: "
     read -n 1 INPUT
     echo

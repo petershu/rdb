@@ -13,6 +13,9 @@ export RDB_UTIL="$RDB_BASE_PATH/$RDB_UTIL_FILENAME"
 RDB_CONFIG_FILENAME="rdb.config"
 . $RDB_BASE_PATH/$RDB_CONFIG_FILENAME
 
+RDB_BYPASS_CHARACTER='!'
+export RDB_CONFIRM_BYPASS="false"
+
 get_command_full_path() {
   for command in $(find ${RDB_COMMANDS_PATH} -type f | grep -v '/\.')
   do
@@ -53,7 +56,14 @@ if [ $# == 0 ] ; then
   $(get_command_full_path "${RDB_COMMAND_HELP_NAME}")
   exit 1
 else
-  RDB_COMMAND=$(get_command_full_path $1)
+  if [[ $1 == *$RDB_BYPASS_CHARACTER ]] ; then
+    export RDB_CONFIRM_BYPASS="true"
+    RDB_COMMAND_NAME=${1%$RDB_BYPASS_CHARACTER}
+  else
+    export RDB_CONFIRM_BYPASS="false"
+    RDB_COMMAND_NAME="$1"
+  fi
+  RDB_COMMAND=$(get_command_full_path $RDB_COMMAND_NAME)
   shift
   if [ ${RDB_COMMAND} == "unrecognized" ] ; then
     echo "$(tput setaf 1)Command not recognized. RTFM!$(tput sgr0)"
