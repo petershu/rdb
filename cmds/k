@@ -11,7 +11,7 @@ if [ $# -ne 1 ] ; then
   echo "Example 2: rdb k com.example.someapp"
 else
   if [ $(is_integer $1) == "true" ] ; then
-    package_name=$(adb $device_select shell ps -p $1 | grep $1 | awk '{print $13}')
+    package_name=$(adb $RDB_DEVICE_SELECT shell ps -p $1 | grep $1 | awk '{print $13}')
     if [ -z $package_name ] ; then
       echo "Process $1 not found!"
     else

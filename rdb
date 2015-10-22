@@ -20,7 +20,7 @@ get_command_full_path() {
   for command in $(find ${RDB_COMMANDS_PATH} -type f | grep -v '/\.')
   do
     if [ "$1" == "${command##*/}" ] ; then
-	  echo $command
+      echo $command
       return 0
     fi
   done
