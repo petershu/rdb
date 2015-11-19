@@ -7,6 +7,9 @@ export RDB_BASE_PATH=$(dirname $0)
 export RDB_BASE_NAME=$(basename $0)
 export RDB="${RDB_BASE_PATH}/${RDB_BASE_NAME}"
 
+export ADB="${RDB_BASE_PATH}/tools/adb"
+export FASTBOOT="${RDB_BASE_PATH}/tools/fastboot"
+
 RDB_UTIL_FILENAME="rdb.util"
 export RDB_UTIL="$RDB_BASE_PATH/$RDB_UTIL_FILENAME"
 
@@ -84,7 +87,7 @@ else
           $RDB_COMMAND "$@"
           echo
         fi
-      done 3<<< "$(adb devices -l)"
+      done 3<<< "$($ADB devices -l)"
     else
       $RDB_COMMAND "$@"
     fi

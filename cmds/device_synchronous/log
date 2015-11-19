@@ -2,4 +2,4 @@
 
 # Description: adb logcat -v threadtime
 
-adb $RDB_DEVICE_SELECT logcat -v threadtime
+$ADB $RDB_DEVICE_SELECT logcat -v threadtime

@@ -8,7 +8,7 @@ if [ $# -gt 1 ] ; then
   echo "Example 1: rdb gp"
   echo "Example 2: rdb gp ro.build"
 elif [ $# -eq 1 ] ; then
-  adb $RDB_DEVICE_SELECT shell getprop | egrep -i "$@"
+  $ADB $RDB_DEVICE_SELECT shell getprop | egrep -i "$@"
 else
-  adb $RDB_DEVICE_SELECT shell getprop
+  $ADB $RDB_DEVICE_SELECT shell getprop
 fi

@@ -9,7 +9,7 @@ if [ -z $package_name ] ; then
   echo "Example 1: rdb pid com.example.someapp"
   echo "Example 2: rdb pid someapp"
 else
-  pid=$(adb $RDB_DEVICE_SELECT shell ps | grep $package_name | awk '{print $2"\t"$9}')
+  pid=$($ADB $RDB_DEVICE_SELECT shell ps | grep $package_name | awk '{print $2"\t"$9}')
   if [ -n "$pid" ] ; then
     echo -e "PID(s) found for '$package_name':\n$pid"
   else

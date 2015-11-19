@@ -2,4 +2,4 @@
 
 # Description: fastboot reboot
 
-fastboot $RDB_DEVICE_SELECT reboot
+$FASTBOOT $RDB_DEVICE_SELECT reboot

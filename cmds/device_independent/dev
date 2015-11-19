@@ -2,5 +2,5 @@
 
 # Description: adb devices & fastboot devices
 
-adb devices -l
-fastboot devices -l
+$ADB devices -l
+$FASTBOOT devices -l

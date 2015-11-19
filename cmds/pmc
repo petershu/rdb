@@ -11,5 +11,5 @@ if [ -z $package_name ] ; then
   echo "Example: rdb pmc com.example.someapp"
 else
   confirm $1 "Clearing data from package: [${package_name}]." &&
-  adb $RDB_DEVICE_SELECT shell pm clear $package_name
+  $ADB $RDB_DEVICE_SELECT shell pm clear $package_name
 fi

@@ -11,5 +11,5 @@ if [ -z $package_name ] ; then
   echo "Example: rdb u com.example.someapp"
 else
   confirm $1 "Uninstalling package: [${package_name}]." &&
-  adb $RDB_DEVICE_SELECT uninstall $package_name
+  $ADB $RDB_DEVICE_SELECT uninstall $package_name
 fi

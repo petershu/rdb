@@ -2,7 +2,7 @@
 
 # Description: simulates a swipe gesture from left to right
 
-restricted_screen_size=$(adb $RDB_DEVICE_SELECT shell dumpsys window | grep mRestrictedScreen)
+restricted_screen_size=$($ADB $RDB_DEVICE_SELECT shell dumpsys window | grep mRestrictedScreen)
 if [[ $restricted_screen_size =~ ([0-9]+)x([0-9]+) ]] ; then
   screen_width=${BASH_REMATCH[1]}
   screen_height=${BASH_REMATCH[2]}
@@ -16,4 +16,4 @@ right=$((screen_width - 10))
 y=$((screen_height / 2))
 
 echo "Swiping from ($left, $y) to ($right, $y)"
-adb $RDB_DEVICE_SELECT shell input swipe $left $y $right $y
+$ADB $RDB_DEVICE_SELECT shell input swipe $left $y $right $y

@@ -8,12 +8,12 @@ if [ -z $package_name ] ; then
   echo "Please specify a package name: rdb plog [PackageName]"
   echo "Example: rdb plog com.example.someapp"
 else
-  processes=$(adb $RDB_DEVICE_SELECT shell ps | grep $package_name)
+  processes=$($ADB $RDB_DEVICE_SELECT shell ps | grep $package_name)
   if [ -n "$processes" ] ; then
     processes_string=$(echo "$processes" | awk '{print $2"\t"$9}')
     echo -e "$(tput setaf 4)Printing logs for:\n${processes_string}$(tput sgr0)"
     pid_grep_string=$(echo "$processes" | awk '{print $2}' | sed -e :a -e '$!N;s/\n/|/;ta')
-    adb $RDB_DEVICE_SELECT logcat -v threadtime | egrep "$pid_grep_string"
+    $ADB $RDB_DEVICE_SELECT logcat -v threadtime | egrep "$pid_grep_string"
   else
     echo "Process "$package_name" not found or not running!"
   fi

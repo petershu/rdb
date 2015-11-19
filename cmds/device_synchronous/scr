@@ -10,8 +10,8 @@ remote_screenrecording_file_path="/sdcard/rdb_tmp_screenrecording.mp4"
 function pull_recording() {
   sleep 1 &&
   local_screenrecording_save_path=$(append_extension_if_missing ${1%/} mp4)
-  adb $RDB_DEVICE_SELECT pull ${remote_screenrecording_file_path} ${local_screenrecording_save_path} &&
-  adb $RDB_DEVICE_SELECT shell rm ${remote_screenrecording_file_path}
+  $ADB $RDB_DEVICE_SELECT pull ${remote_screenrecording_file_path} ${local_screenrecording_save_path} &&
+  $ADB $RDB_DEVICE_SELECT shell rm ${remote_screenrecording_file_path}
   echo -e "\nScreen recording saved to: ${local_screenrecording_save_path}\n"
 }
 
@@ -23,5 +23,5 @@ if [ $# -ne 1 ] ; then
 else
   echo "Screen recording has started. $(tput setaf 4)Press Ctrl-C to stop recording...$(tput sgr0)"
   trap "pull_recording $1" EXIT
-  adb $RDB_DEVICE_SELECT shell screenrecord --bit-rate 16000000 ${remote_screenrecording_file_path}
+  $ADB $RDB_DEVICE_SELECT shell screenrecord --bit-rate 16000000 ${remote_screenrecording_file_path}
 fi

@@ -4,7 +4,7 @@
 # Usage: [OptionalAdbShellCommands]
 
 if [ $# -ge 1 ] ; then
-  adb $RDB_DEVICE_SELECT shell "$@"
+  $ADB $RDB_DEVICE_SELECT shell "$@"
 else
-  adb $RDB_DEVICE_SELECT shell
+  $ADB $RDB_DEVICE_SELECT shell
 fi

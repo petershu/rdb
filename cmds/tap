@@ -8,5 +8,5 @@
 if [ $# -ne 2 ] || [ $(is_integer $1) != "true" ] || [ $(is_integer $2) != "true" ] ; then
   echo "Please specify tap coordinates: rdb tap <x> <y>"
 else
-  adb $RDB_DEVICE_SELECT shell input tap $1 $2
+  $ADB $RDB_DEVICE_SELECT shell input tap $1 $2
 fi

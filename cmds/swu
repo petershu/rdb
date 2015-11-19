@@ -2,7 +2,7 @@
 
 # Description: simulates a swipe gesture from bottom to top
 
-restricted_screen_size=$(adb $RDB_DEVICE_SELECT shell dumpsys window | grep mRestrictedScreen)
+restricted_screen_size=$($ADB $RDB_DEVICE_SELECT shell dumpsys window | grep mRestrictedScreen)
 if [[ $restricted_screen_size =~ ([0-9]+)x([0-9]+) ]] ; then
   screen_width=${BASH_REMATCH[1]}
   screen_height=${BASH_REMATCH[2]}
@@ -17,4 +17,4 @@ top=$margin
 bottom=$((screen_height - $margin))
 
 echo "Swiping from ($x, $bottom) to ($x, $top)"
-adb $RDB_DEVICE_SELECT shell input swipe $x $bottom $x $top
+$ADB $RDB_DEVICE_SELECT shell input swipe $x $bottom $x $top

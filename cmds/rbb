@@ -2,4 +2,4 @@
 
 # Description: adb reboot bootloader
 
-adb $RDB_DEVICE_SELECT reboot bootloader
+$ADB $RDB_DEVICE_SELECT reboot bootloader

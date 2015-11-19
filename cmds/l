@@ -10,5 +10,5 @@ if [ -z $component_name ] ; then
   echo "Please specify a component name: rdb l <ComponentName>"
   echo "Example: rdb l com.example.someapp/.SomeActivity"
 else
-  adb $RDB_DEVICE_SELECT shell am start -n $component_name
+  $ADB $RDB_DEVICE_SELECT shell am start -n $component_name
 fi

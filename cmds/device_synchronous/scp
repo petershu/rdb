@@ -12,6 +12,6 @@ if [ $# -ne 1 ] ; then
   echo "Example 3: rdb scp ~/Desktop/screenshot01   (if missing, '.png' will be automatically appended)"
 else
   screenshot_save_path=$(append_extension_if_missing ${1%/} png)
-  adb $RDB_DEVICE_SELECT shell screencap -p | perl -pe 's/\x0D\x0A/\x0A/g' > ${screenshot_save_path}
+  $ADB $RDB_DEVICE_SELECT shell screencap -p | perl -pe 's/\x0D\x0A/\x0A/g' > ${screenshot_save_path}
   echo -e "\nScreenshot saved to: ${screenshot_save_path}\n"
 fi

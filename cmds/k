@@ -11,16 +11,16 @@ if [ $# -ne 1 ] ; then
   echo "Example 2: rdb k com.example.someapp"
 else
   if [ $(is_integer $1) == "true" ] ; then
-    package_name=$(adb $RDB_DEVICE_SELECT shell ps -p $1 | grep $1 | awk '{print $13}')
+    package_name=$($ADB $RDB_DEVICE_SELECT shell ps -p $1 | grep $1 | awk '{print $13}')
     if [ -z $package_name ] ; then
       echo "Process $1 not found!"
     else
       confirm $1 "Killing process: $package_name" &&
-      adb $RDB_DEVICE_SELECT shell kill $1
+      $ADB $RDB_DEVICE_SELECT shell kill $1
     fi
   else
     package_name=${1:-$RDB_APP_PACKAGE_NAME}
     confirm $1 "Killing process: $package_name" &&
-    adb $RDB_DEVICE_SELECT shell am force-stop $package_name
+    $ADB $RDB_DEVICE_SELECT shell am force-stop $package_name
   fi
 fi
