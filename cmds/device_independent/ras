@@ -1,0 +1,18 @@
+#!/bin/bash
+
+# Description: Restores your SDK source to its original contents
+
+backup_folder=`find $ANDROID_HOME/sources -type d -maxdepth 1 -name "android-*-backup"`
+[[ $backup_folder =~ android-([0-9]+)-backup ]]
+backup_sdk_version=${BASH_REMATCH[1]}
+if [ -z $backup_folder ] ; then
+  echo "Nothing to reset"
+else
+  target_folder=$ANDROID_HOME/sources/android-$backup_sdk_version
+  echo
+  echo -e "Deleting fake:\n$target_folder"
+  rm -rf $target_folder
+  echo
+  echo -e "Restoring original:\n$backup_folder -> $target_folder\n"
+  mv $backup_folder $target_folder
+fi

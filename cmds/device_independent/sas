@@ -1,0 +1,23 @@
+#!/bin/bash
+
+# Description: Backs up your compileSdkVersion's source, and replaces it with another version's source
+# Usage: <CompileSdkVersion> <AndroidSdkSourceToUse>
+
+existing_backup_folder=`find $ANDROID_HOME/sources -type d -maxdepth 1 -name "android-*-backup"`
+if [ $# -ne 2 ] ; then
+  echo "Please specify your compileSdkVersion and an Android SDK source version to replace it with: rdb sas <CompileSdkVersion> <AndroidSdkSourceToKeep>"
+  echo "[ 15 = 4.0.x , 16 = 4.1.x , 17 = 4.2.x , 18 = 4.3 , 19 = 4.4 , 21 = 5.0 , 22 = 5.1 , 23 = 6.0 ]"
+  echo "Example: rdb sas 23 19"
+elif [ -n "$existing_backup_folder" ] ; then
+  echo -e "\nA replacement already exists. Please un-do it with \"rdb ras\" first.\n"
+else
+  target_folder=$ANDROID_HOME/sources/android-$1
+  backup_folder=$target_folder-backup
+  copy_folder=$ANDROID_HOME/sources/android-$2
+  echo
+  echo -e "Backing up original:\n$target_folder -> $backup_folder"
+  mv $target_folder $backup_folder
+  echo
+  echo -e "Copying contents:\n$copy_folder -> $target_folder\n"
+  cp -r $copy_folder/ $target_folder/
+fi
