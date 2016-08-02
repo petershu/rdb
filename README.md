@@ -1,4 +1,4 @@
-# rdb v1.1.1
+# rdb v1.1.2
 
 ## Usage
 rdb [OPTIONS] \<COMMAND\>
@@ -30,9 +30,11 @@ pid | [PackageName\|SearchString] | get PID (process id) by full or partial pack
 pkg | [SearchString] | List all installed packages or all matching a specified name
 plog | [PackageName] | filters logcat output for a specific package name
 pmc | [PackageName] | clears data for the specified application
+ras |  | Restores your SDK source to its original contents
 rb |  | adb reboot
 rbb |  | adb reboot bootloader
-scp | \<ScreenshotSavePath\> | captures screenshot from device and saves it to the designated path
+sas | \<CompileSdkVersion\> \<AndroidSdkSourceToUse\> | Backs up your compileSdkVersion's source, and replaces it with another version's source
+scp | [MaxDimensions] \<ScreenshotSavePath\> | captures screenshot from device and saves it to the designated path
 scr | \<ScreenRecordingSavePath\> | captures screen recording and saves it to the designated path
 sh | [OptionalAdbShellCommands] | adb shell with optional commands
 swd |  | simulates a swipe gesture from top to bottom

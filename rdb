@@ -1,7 +1,7 @@
 #!/bin/bash
 
 export RDB_NAME="Our Debug Bridge"
-export RDB_VERSION="1.1.1"
+export RDB_VERSION="1.1.2"
 
 export RDB_BASE_PATH=$(dirname $0)
 export RDB_BASE_NAME=$(basename $0)
