@@ -1,17 +1,28 @@
 #!/bin/bash
 
 # Description: captures screenshot from device and saves it to the designated path
-# Usage: <ScreenshotSavePath>
+# Usage: [MaxDimensions] <ScreenshotSavePath>
 
 . $RDB_UTIL
 
-if [ $# -ne 1 ] ; then
-  echo "Please specify a save file path for the screenshot: rdb scp <ScreenshotSavePath>"
-  echo "Example 1: rdb scp screenshot01.png"
-  echo "Example 2: rdb scp ~/Desktop/screenshot01.png"
-  echo "Example 3: rdb scp ~/Desktop/screenshot01   (if missing, '.png' will be automatically appended)"
+max_dimensions="600x600"
+if [ $# -lt 1 ] || [ $# -gt 2 ] ; then
+  echo
+  echo "Please specify a save file path for the screenshot (with optional max dimensions): rdb scp [MaxDimensions] <ScreenshotSavePath>"
+  echo "Example 1: rdb scp screenshot01.png                     (keeps original dimensions)"
+  echo "Example 2: rdb scp 600x800 ~/Desktop/screenshot01.png   (if image is larger, it scales down to max width of 600 and max height of 800)"
+  echo "Example 3: rdb scp ~/Desktop/screenshot01               (if missing, '.png' will be automatically appended)"
+  echo
 else
-  screenshot_save_path=$(append_extension_if_missing ${1%/} png)
+  if [ $# -eq 2 ] ; then
+    max_dimensions=$1
+    screenshot_save_path=$(append_extension_if_missing ${2%/} png)
+  else	
+    screenshot_save_path=$(append_extension_if_missing ${1%/} png)
+  fi
   $ADB $RDB_DEVICE_SELECT shell screencap -p | perl -pe 's/\x0D\x0A/\x0A/g' > ${screenshot_save_path}
+  if [ $# -eq 2 ] ; then
+    convert -resize ${max_dimensions}\> ${screenshot_save_path} ${screenshot_save_path}
+  fi
   echo -e "\nScreenshot saved to: ${screenshot_save_path}\n"
 fi
