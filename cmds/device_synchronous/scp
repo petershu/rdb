@@ -20,9 +20,17 @@ else
   else	
     screenshot_save_path=$(append_extension_if_missing ${1%/} png)
   fi
-  $ADB $RDB_DEVICE_SELECT shell screencap -p | perl -pe 's/\x0D\x0A/\x0A/g' > ${screenshot_save_path}
+
+  api_level=`$ADB $RDB_DEVICE_SELECT shell getprop ro.build.version.sdk`
+  if [ $api_level -ge 24 ] ; then
+    $ADB $RDB_DEVICE_SELECT shell screencap -p > ${screenshot_save_path}
+  else
+    $ADB $RDB_DEVICE_SELECT shell screencap -p | perl -pe 's/\x0D\x0A/\x0A/g' > ${screenshot_save_path}
+  fi
+
   if [ $# -eq 2 ] ; then
     convert -resize ${max_dimensions}\> ${screenshot_save_path} ${screenshot_save_path}
   fi
+
   echo -e "\nScreenshot saved to: ${screenshot_save_path}\n"
 fi
