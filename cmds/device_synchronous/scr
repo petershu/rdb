@@ -12,7 +12,7 @@ function pull_recording() {
   local_screenrecording_save_path=$(append_extension_if_missing ${1%/} mp4)
   $ADB $RDB_DEVICE_SELECT pull ${remote_screenrecording_file_path} ${local_screenrecording_save_path} &&
   $ADB $RDB_DEVICE_SELECT shell rm ${remote_screenrecording_file_path}
-  echo -e "\nScreen recording saved to: ${local_screenrecording_save_path}\n"
+  echo -e "\nScreen recording saved to: ${local_screenrecording_save_path}"
 }
 
 if [ $# -ne 1 ] ; then
@@ -21,7 +21,11 @@ if [ $# -ne 1 ] ; then
   echo "Example 2: rdb scr ~/Desktop/screenrec01.mp4"
   echo "Example 3: rdb scr ~/Desktop/screenrec01   (if missing, '.mp4' will be automatically appended)"
 else
-  echo "Screen recording has started. $(tput setaf 4)Press Ctrl-C to stop recording...$(tput sgr0)"
-  trap "pull_recording $1" EXIT
-  $ADB $RDB_DEVICE_SELECT shell screenrecord --bit-rate 16000000 ${remote_screenrecording_file_path}
+  if ! $ADB $RDB_DEVICE_SELECT shell command -v screenrecord >/dev/null 2>&1 ; then
+    echo -e "\n$(tput setaf 1)Your device does not support screen recording! :($(tput sgr0)\n"
+  else
+    echo -e "\nScreen recording has started. $(tput setaf 4)Press Ctrl-C to stop recording...$(tput sgr0)"
+    trap "pull_recording $1" EXIT
+    $ADB $RDB_DEVICE_SELECT shell screenrecord --bit-rate 16000000 ${remote_screenrecording_file_path}
+  fi
 fi
