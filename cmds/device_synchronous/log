@@ -1,5 +1,15 @@
 #!/bin/bash
 
-# Description: adb logcat -v threadtime
+# Description: adb logcat (and filters for a specific case-insensitive regex pattern if specified)
+# Usage: [RegexPattern]
 
-$ADB $RDB_DEVICE_SELECT logcat -v threadtime
+if [ $# -gt 1 ] ; then
+  echo "Too many arguments!"
+  echo "Example 1: rdb log"
+  echo "Example 2: rdb log regexpattern"
+  echo "Example 2: rdb log 'regexpattern1|regexpattern2|regexpattern3'"
+elif [ $# -eq 1 ] ; then
+  $ADB $RDB_DEVICE_SELECT logcat -e "(?i)$1"
+else
+  $ADB $RDB_DEVICE_SELECT logcat
+fi
