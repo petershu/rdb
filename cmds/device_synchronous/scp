@@ -22,7 +22,7 @@ else
   fi
 
   api_level=`$ADB $RDB_DEVICE_SELECT shell getprop ro.build.version.sdk`
-  if [ $api_level -ge 24 ] ; then
+  if [ ${api_level//[$'\t\r\n']} -ge 24 ] ; then
     $ADB $RDB_DEVICE_SELECT shell screencap -p > ${screenshot_save_path}
   else
     $ADB $RDB_DEVICE_SELECT shell screencap -p | perl -pe 's/\x0D\x0A/\x0A/g' > ${screenshot_save_path}
