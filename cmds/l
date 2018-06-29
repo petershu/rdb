@@ -1,14 +1,27 @@
 #!/bin/bash
 
 # Description: adb shell am start
-# Usage: <ComponentName>
+# Usage: <PackageName|ComponentName>
 
 . $RDB_UTIL
 
-component_name=$1
-if [ -z $component_name ] ; then
-  echo "Please specify a component name: rdb l <ComponentName>"
-  echo "Example: rdb l com.example.someapp/.SomeActivity"
+name=$1
+if [ -z $name ] ; then
+  echo -e "$(tput setaf 5)Please specify a package or component name: rdb l <PackageName|ComponentName>$(tput sgr0)"
+  echo -e "$(tput setaf 5)Example 1: rdb l com.example.someapp [launching by package name only works on Nougat (24) or higher]$(tput sgr0)"
+  echo -e "$(tput setaf 5)Example 2: rdb l com.example.someapp/.SomeActivity$(tput sgr0)"
+elif [[ "$name" =~ / ]] ; then
+  $ADB $RDB_DEVICE_SELECT shell am start -n $name
 else
-  $ADB $RDB_DEVICE_SELECT shell am start -n $component_name
+  api_level=`$ADB $RDB_DEVICE_SELECT shell getprop ro.build.version.sdk`
+  if [ ${api_level//[$'\t\r\n']} -ge 24 ] ; then
+    component_name=`$ADB $RDB_DEVICE_SELECT shell "cmd package resolve-activity --brief $name | tail -n 1"`
+    if [[ "$component_name" =~ / ]] ; then
+      $ADB $RDB_DEVICE_SELECT shell am start -n $component_name
+    else
+      echo -e "$(tput setaf 1)No activity found for the specified package: "$name"$(tput sgr0)"
+    fi
+  else
+    echo -e "$(tput setaf 1)Device OS version must be Nougat (API 24) or higher to support launching by package name.\nPlease specify the full component name instead.$(tput sgr0)"
+  fi
 fi
