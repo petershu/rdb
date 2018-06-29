@@ -1,0 +1,5 @@
+#!/bin/bash
+
+# Description: launches Locale Settings
+
+$ADB $RDB_DEVICE_SELECT shell am start -a android.settings.LOCALE_SETTINGS
