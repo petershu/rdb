@@ -23,11 +23,13 @@ gp | [SearchString] | adb shell getprop (and filters using a search string if sp
 help |  | display this manual
 helpmd |  | display this manual in markdown format
 k | [PackageName\|PID] | kill application with the specified package name or PID (Note: Killing by PID only works on rooted devices)
-l | \<ComponentName\> | adb shell am start
+l | \<PackageName\|ComponentName\> | adb shell am start
+loc |  | launches Locale Settings
 log |  | adb logcat -v threadtime
 loge |  | adb logcat -v threadtime *:e
 pid | [PackageName\|SearchString] | get PID (process id) by full or partial package name
 pkg | [SearchString] | List all installed packages or all matching a specified name
+play | \<PackageName\> | opens the Play Store page for the package name
 plog | [PackageName] | filters logcat output for a specific package name
 pmc | [PackageName] | clears data for the specified application
 ras |  | Restores your SDK source to its original contents
