@@ -1,0 +1,11 @@
+#!/bin/bash
+
+# Description: opens the Play Store page for the package name
+# Usage: <PackageName>
+
+if [ $# -ne 1 ] ; then
+  echo "Please specify the app's package name: rdb play <PackageName>"
+  echo "Example: rdb play com.android.chrome"
+else
+  $ADB $RDB_DEVICE_SELECT shell am start -a android.intent.action.VIEW -d http://play.google.com/store/apps/details?id=$1
+fi
