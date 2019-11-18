@@ -19,6 +19,7 @@ frb |  | fastboot reboot
 gitdf |  | checks whether your git working directory has any unstaged changes (using git diff-files)
 gitdi |  | checks whether your git working directory has any staged but uncommitted changes (using git diff-index)
 gitdr |  | checks whether your git local branch HEAD differs from the remote
+gitum |  | updates your local master branch with the latest remote master
 gp | [SearchString] | adb shell getprop (and filters using a search string if specified)
 help |  | display this manual
 helpmd |  | display this manual in markdown format
