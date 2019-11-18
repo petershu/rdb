@@ -1,0 +1,5 @@
+#!/bin/bash
+
+# Description: updates your local master branch with the latest remote master
+
+git fetch origin master:master
