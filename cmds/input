@@ -1,0 +1,16 @@
+#!/bin/bash
+
+# Description: Input text on the device
+# Usage: [String]
+
+input=$@
+if [ ${#input} == 0 ] ; then
+  echo "Please enter some text"
+  echo "Example: rdb input hello world"
+  echo "For just a single splace, please use %s"
+  echo "Example: rdb input %s"
+else
+  # spaces are represented as %s
+  str=${input// /%s}
+  adb $RDB_DEVICE_SELECT shell input text "$str"
+fi
